@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">weg-li-android</string>
+    <string name="description">Beschreibung</string>
+    <string name="car">Fahrzeug</string>
+    <string name="type">Marke</string>
 </resources>
