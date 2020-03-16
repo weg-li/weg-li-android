@@ -6,6 +6,7 @@
     <string name="color">Farbe</string>
     <string name="license_plate">Kennzeichen</string>
     <string name="car_type">Marke</string>
+    <string name="violation">Verstoß</string>
 
     <string-array name="car_type_list">
         <item>Adria</item>
@@ -101,5 +102,11 @@
         <item>Volvo</item>
         <item>VW</item>
         <item>Wiesmann</item>
+    </string-array>
+
+    <string-array name="violation_list">
+        <item>Stand auf unbeschildertem Radweg</item>
+        <item>Stand im Kreuzungsbereich</item>
+        <item>Stand auf Gehweg</item>
     </string-array>
 </resources>

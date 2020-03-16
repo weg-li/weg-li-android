@@ -9,6 +9,11 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupCarTypeSpinner()
+        setupViolationSpinner()
+    }
+
+    private fun setupCarTypeSpinner() {
         ArrayAdapter.createFromResource(
             this,
             R.array.car_type_list,
@@ -16,6 +21,17 @@ class MainActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             carTypeSpinner.adapter = adapter
+        }
+    }
+
+    private fun setupViolationSpinner() {
+        ArrayAdapter.createFromResource(
+            this,
+            R.array.violation_list,
+            android.R.layout.simple_spinner_item
+        ).also { adapter ->
+            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+            violationSpinner.adapter = adapter
         }
     }
 }
