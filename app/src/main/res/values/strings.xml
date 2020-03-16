@@ -3,4 +3,79 @@
     <string name="description">Beschreibung</string>
     <string name="car">Fahrzeug</string>
     <string name="type">Marke</string>
+    <string name="color">Farbe</string>
+    <string name="license_plate">Kennzeichen</string>
+
+    <string-array name="car_type_list">
+        <item>Adria</item>
+        <item>Alfa Romeo</item>
+        <item>Alpina</item>
+        <item>Alpine</item>
+        <item>Apollo</item>
+        <item>Artega</item>
+        <item>Aston Martin</item>
+        <item>Audi</item>
+        <item>Bentley</item>
+        <item>BMW</item>
+        <item>BMW M</item>
+        <item>Borward</item>
+        <item>Brabus</item>
+        <item>Brilliance</item>
+        <item>Bugatti</item>
+        <item>Buick</item>
+        <item>Byton</item>
+        <item>Cadillac</item>
+        <item>Carthago</item>
+        <item>Caterham</item>
+        <item>Chevrolet</item>
+        <item>Chrysler</item>
+        <item>Citroën</item>
+        <item>CUPRA</item>
+        <item>Dacia</item>
+        <item>Daihatsu</item>
+        <item>De Tomaso</item>
+        <item>Dodge</item>
+        <item>DS Automobiles</item>
+        <item>Faraday Future</item>
+        <item>Ferrari</item>
+        <item>Fiat</item>
+        <item>Fisker</item>
+        <item>Ford</item>
+        <item>Honda</item>
+        <item>Hummer</item>
+        <item>Hyundai</item>
+        <item>Infiniti</item>
+        <item>Isuzu</item>
+        <item>Iveco</item>
+        <item>Jaguar</item>
+        <item>Jeep</item>
+        <item>Kia</item>
+        <item>Koenigsegg</item>
+        <item>KTM</item>
+        <item>Lada</item>
+        <item>Lamborhini</item>
+        <item>Lancia</item>
+        <item>Land Rover</item>
+        <item>LeEco</item>
+        <item>Lexus</item>
+        <item>Lincoln</item>
+        <item>Lotus</item>
+        <item>Lynk &amp; Co</item>
+        <item>Mahindra</item>
+        <item>Maserati</item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+        <item></item>
+    </string-array>
 </resources>
