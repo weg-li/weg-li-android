@@ -63,19 +63,42 @@
         <item>Lynk &amp; Co</item>
         <item>Mahindra</item>
         <item>Maserati</item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
-        <item></item>
+        <item>Maybach</item>
+        <item>Mazda</item>
+        <item>McLaren</item>
+        <item>Mercedes-AMG</item>
+        <item>Mercedes-Benz</item>
+        <item>Mini</item>
+        <item>Mitsubishi</item>
+        <item>Morgan</item>
+        <item>Nissan</item>
+        <item>Opel</item>
+        <item>Pagani</item>
+        <item>Peugeot</item>
+        <item>Piaggio</item>
+        <item>Polestar</item>
+        <item>Porsche</item>
+        <item>Qoros</item>
+        <item>Renault</item>
+        <item>Rolls-Royce</item>
+        <item>Rover</item>
+        <item>Ruf</item>
+        <item>Saab</item>
+        <item>Saleen</item>
+        <item>SEAT</item>
+        <item>Škoda</item>
+        <item>Smart</item>
+        <item>Spyker</item>
+        <item>SsangYong</item>
+        <item>Subaru</item>
+        <item>Suzuki</item>
+        <item>Tata</item>
+        <item>Tesla</item>
+        <item>Toyota</item>
+        <item>TVR</item>
+        <item>Venturi</item>
+        <item>Volvo</item>
+        <item>VW</item>
+        <item>Wiesmann</item>
     </string-array>
 </resources>
