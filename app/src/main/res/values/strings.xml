@@ -5,6 +5,7 @@
     <string name="type">Marke</string>
     <string name="color">Farbe</string>
     <string name="license_plate">Kennzeichen</string>
+    <string name="car_type">Marke</string>
 
     <string-array name="car_type_list">
         <item>Adria</item>

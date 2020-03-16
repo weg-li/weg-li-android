@@ -44,7 +44,7 @@
                 app:layout_constraintTop_toTopOf="@id/status_image" />
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/car_header"
+                android:id="@+id/carHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/standard_16dp"
@@ -54,22 +54,28 @@
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/status_image" />
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/car_type_input"
-                android:layout_width="0dp"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/carTypeLabel"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/standard_8dp"
-                android:layout_marginLeft="@dimen/standard_16dp"
-                android:layout_marginRight="@dimen/standard_16dp"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="@dimen/standard_16dp"
+                android:text="@string/car_type"
+                android:textSize="18sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/car_header">
+                app:layout_constraintTop_toBottomOf="@id/carHeader" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="@string/type" />
-            </com.google.android.material.textfield.TextInputLayout>
+            <androidx.appcompat.widget.AppCompatSpinner
+                android:id="@+id/carTypeSpinner"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginEnd="@dimen/standard_8dp"
+                app:layout_constraintBottom_toBottomOf="@id/carTypeLabel"
+                app:layout_constraintHorizontal_bias="1"
+                app:layout_constraintLeft_toRightOf="@id/carTypeLabel"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="@id/carTypeLabel" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/car_color"
@@ -80,7 +86,7 @@
                 android:layout_marginRight="@dimen/standard_16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/car_type_input">
+                app:layout_constraintTop_toBottomOf="@id/carTypeSpinner">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
