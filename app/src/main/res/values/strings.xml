@@ -105,8 +105,48 @@
     </string-array>
 
     <string-array name="violation_list">
-        <item>Stand auf unbeschildertem Radweg</item>
-        <item>Stand im Kreuzungsbereich</item>
-        <item>Stand auf Gehweg</item>
+        <item>Parken auf einem unbeschilderten Radweg</item>
+        <item>Parken auf einem Fußgängerüberweg</item>
+        <item>Parken auf einem Radweg (Zeichen 237)</item>
+        <item>Parken auf einem Geh- und Radweg (Zeichen 240/241)</item>
+        <item>Parken auf einer Fahrradstraße (Zeichen 244.1/244.2)</item>
+        <item>Parken verbotswidrig auf einem Schutzstreifen für den Radverkehr (Zeichen 340)</item>
+        <item>Parken verbotswidrig auf einem Gehweg</item>
+        <item>Parken in einem verkehrsberuhigten Bereich (Zeichen 325.1, 325.2) verbotswidrig außerhalb der zum Parken gekennzeichneten Flächen</item>
+        <item>Parken in einem Fußgängerbereich, der (durch Zeichen 239/242.1, 242.2/250) gesperrt war</item>
+        <item>Parken in einem Abstand von weniger als 5 Meter vor einem Fußgängerüberweg</item>
+        <item>Parken weniger als 5 Meter vor/hinter der Kreuzung/Einmündung</item>
+        <item>Parken im absolutem Haltverbot (Zeichen 283)</item>
+        <item>Parken unzulässig im eingeschränkten Haltverbot (Zeichen 286)</item>
+        <item>Parken unzulässig auf einer Sperrfläche (Zeichen 298)</item>
+        <item>Parken an einer engen/unübersichtlichen Straßenstelle</item>
+        <item>Parken im Bereich einer scharfen Kurve</item>
+        <item>Parken unzulässig in der zweiten Reihe</item>
+        <item>Parkten näher als 10 Meter vor einem Lichtzeichen</item>
+        <item>Parken vor oder in einer amtlich gekennzeichneten Feuerwehrzufahrt</item>
+        <item>Parken verbotswidrig im Bereich eines Taxenstandes (Zeichen 229)</item>
+        <item>Parken verbotswidrig und verhinderten dadurch die Benutzung gekennzeichneter Parkflächen</item>
+        <item>Parken im Bereich einer Grundstückseinfahrt bzw. -ausfahrt</item>
+        <item>Parken auf einer schmalen Fahrbahn gegenüber einer Grundstückseinfahrt/Grundstücks-ausfahrt</item>
+        <item>Parken vor einer Bordsteinabsenkung</item>
+        <item>Parken verbotswidrig auf der linken Fahrbahnseite/dem linken Seitenstreifen</item>
+        <item>Parken nicht am rechten Fahrbahnrand</item>
+        <item>Parken im Fahrraum von Schienenfahrzeugen</item>
+        <item>Parken links von einer Fahrbahnbegrenzung (Zeichen 295)</item>
+        <item>Parken in einem Verkehrsbereich, der (durch Zeichen 250/251/253/255/260) gesperrt war</item>
+        <item>Parken auf einem durch Richtungspfeile (Zeichen 297) gekennzeichneten Fahrbahnteil</item>
+        <item>Parken innerhalb einer Grenzmarkierung (Zeichen 299) für ein Haltverbot</item>
+        <item>Parken näher als 10 Meter vor einem Andreaskreuz (Zeichen 201)/Zeichen 205 (Vorfahrt gewähren!)/Zeichen 206 (Halt! Vorfahrt gewähren!) und verdeckten dieses</item>
+        <item>Parken innerhalb eines Kreisverkehrs (Zeichen 215)</item>
+        <item>Parken in einem Abstand von weniger als 15 Metern von einem Haltestellenschild</item>
+        <item>Parken, obwohl zwischen Ihrem Fahrzeug und der Fahrstreifenbegrenzung (Zeichen 295/296) ein Abstand von weniger als 3 Metern verblieb</item>
+        <item>Parken innerhalb einer Grenzmarkierung (Zeichen 299) für ein Parkverbot</item>
+        <item>Parken bei zulässigem Gehwegparken (Zeichen 315) nicht auf dem Gehweg</item>
+        <item>Parkten auf einem Sonderfahrstreifen für Omnibusse des Linienverkehrs (Zeichen 245)</item>
+        <item>Parken auf einem gekennzeichneten Behindertenparkplatz</item>
+        <item>Parken mit Verbrenner vor Elektroladesäule</item>
+        <item>Parken auf einer Grünfläche</item>
+        <item>Parken auf einer Baumscheibe</item>
+        <item>Sonstiges Parkvergehen (siehe Hinweise)</item>
     </string-array>
 </resources>
