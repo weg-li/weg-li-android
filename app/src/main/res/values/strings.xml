@@ -7,6 +7,7 @@
     <string name="license_plate">Kennzeichen</string>
     <string name="car_type">Marke</string>
     <string name="violation">Verstoß</string>
+    <string name="duration_label">Stand länger als</string>
 
     <string-array name="car_type_list">
         <item>Adria</item>

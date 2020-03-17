@@ -11,6 +11,9 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
         setupCarTypeSpinner()
         setupViolationSpinner()
+        durationText.setOnClickListener {
+
+        }
     }
 
     private fun setupCarTypeSpinner() {
