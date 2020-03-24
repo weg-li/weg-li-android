@@ -4,4 +4,5 @@
     <dimen name="headline_34sp">34sp</dimen>
     <dimen name="header_24sp">24sp</dimen>
     <dimen name="standard_8dp">8dp</dimen>
+    <dimen name="small_4dp">4dp</dimen>
 </resources>
