@@ -9,6 +9,7 @@
     <string name="violation">Verstoß</string>
     <string name="duration_label">Stand länger als</string>
     <string name="hours">Stunden</string>
+    <string name="obstruction_label">Behinderung anderer Verkehrsteilnehmer</string>
 
     <string-array name="car_type_list">
         <item>Adria</item>
