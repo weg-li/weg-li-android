@@ -14,6 +14,8 @@ class MainActivity : AppCompatActivity() {
         durationText.setOnClickListener {
 
         }
+
+
     }
 
     private fun setupCarTypeSpinner() {

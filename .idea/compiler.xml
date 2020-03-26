@@ -3,6 +3,7 @@
   <component name="CompilerConfiguration">
     <bytecodeTargetLevel>
       <module name="app" target="1.8" />
+      <module name="weg-li-android.app" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
