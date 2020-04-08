@@ -23,6 +23,10 @@ ext.versions = [
         // koin
         koinVersion            : '2.1.5',
 
+        // Timber
+        timberVersion          : '4.7.1',
+
+
         // testing
         junitVersion           : '4.13',
         junitExtVersion        : '1.1.1',

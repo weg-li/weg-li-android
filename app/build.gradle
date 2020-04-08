@@ -56,6 +56,8 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
     implementation "androidx.core:core-ktx:$versions.ktxVersion"
 
+    //Timber
+    implementation "com.jakewharton.timber:timber:$versions.timberVersion"
 
     implementation 'android.arch.lifecycle:extensions:1.1.1'
     implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
