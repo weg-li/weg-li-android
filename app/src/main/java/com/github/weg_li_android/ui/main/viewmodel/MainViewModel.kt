@@ -2,15 +2,15 @@ package com.github.weg_li_android.ui.main.viewmodel
 
 import androidx.lifecycle.ViewModel
 import com.github.weg_li_android.data.model.Report
-import com.github.weg_li_android.data.repository.Repository
 import io.reactivex.disposables.CompositeDisposable
+import timber.log.Timber
 
-class MainViewModel(private val repo: Repository) : ViewModel() {
+class MainViewModel() : ViewModel() {
 
     private val compositeDisposable = CompositeDisposable()
 
     fun sendReport(report: Report) {
-        //TODO send report
+        Timber.d("Report is:%s", report.toString())
     }
 
     override fun onCleared() {

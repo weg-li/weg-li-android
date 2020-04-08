@@ -2,15 +2,15 @@ package com.github.weg_li_android.data.model
 
 data class Report(
     val id: Int = 0,
-    val address: String = "",
-    val type: String = "",
-    val color: String = "",
-    val license: String = "",
-    val violation: String = "",
-    val duration: String = "",
-    val obstructionOthers: Boolean = false,
-    val fullName: String = "",
-    val userAddress: String = "",
-    val userPostalCode: String = "",
-    val phoneNumber: String = ""
+    var address: String = "",
+    var type: String = "",
+    var color: String = "",
+    var license: String = "",
+    var violation: String = "",
+    var duration: String = "",
+    var obstructionOthers: Boolean = false,
+    var fullName: String = "",
+    var userAddress: String = "",
+    var userPostalCode: String = "",
+    var phoneNumber: String = ""
 )

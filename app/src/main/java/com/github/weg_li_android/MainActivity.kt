@@ -1,21 +1,31 @@
 package com.github.weg_li_android
 
 import android.os.Bundle
+import android.view.View
+import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.ViewModelProviders
+import com.github.weg_li_android.data.model.Report
+import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
+
+    private lateinit var mainViewModel: MainViewModel
+    private val report = Report()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setupCarTypeSpinner()
         setupViolationSpinner()
         durationText.setOnClickListener {
-
         }
 
-
+        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        sendButton.setOnClickListener { mainViewModel.sendReport(report) }
     }
 
     private fun setupCarTypeSpinner() {
@@ -26,6 +36,18 @@ class MainActivity : AppCompatActivity() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             carTypeSpinner.adapter = adapter
+        }
+        carTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                report.type = (view as AppCompatTextView).text.toString()
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {}
         }
     }
 
