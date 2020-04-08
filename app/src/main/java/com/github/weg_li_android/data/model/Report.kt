@@ -1,10 +1,16 @@
 package com.github.weg_li_android.data.model
 
-import com.google.gson.annotations.SerializedName
-
 data class Report(
-    @SerializedName("id")
     val id: Int = 0,
-    @SerializedName("email")
-    val email: String = ""
+    val address: String = "",
+    val type: String = "",
+    val color: String = "",
+    val license: String = "",
+    val violation: String = "",
+    val duration: String = "",
+    val obstructionOthers: Boolean = false,
+    val fullName: String = "",
+    val userAddress: String = "",
+    val userPostalCode: String = "",
+    val phoneNumber: String = ""
 )
