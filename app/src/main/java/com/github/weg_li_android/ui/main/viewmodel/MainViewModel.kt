@@ -15,6 +15,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         repository.sendEmail(report.address + ", " + report.type + ", " + report.color)
     }
 
+    private fun createEmail(report: Report): String {
+
+
+        return ""
+    }
+
     override fun onCleared() {
         super.onCleared()
     }
