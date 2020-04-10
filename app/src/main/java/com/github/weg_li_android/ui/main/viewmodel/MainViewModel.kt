@@ -12,7 +12,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun sendReport(report: Report) {
         Timber.d("Report is:%s", report.toString())
-        repository.sendEmail("")
+        repository.sendEmail(report.address + ", " + report.type + ", " + report.color)
     }
 
     override fun onCleared() {

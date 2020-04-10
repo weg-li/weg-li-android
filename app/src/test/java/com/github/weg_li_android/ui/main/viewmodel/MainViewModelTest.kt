@@ -2,7 +2,6 @@ package com.github.weg_li_android.ui.main.viewmodel
 
 import com.github.weg_li_android.data.model.Report
 import com.github.weg_li_android.data.repository.Repository
-import com.nhaarman.mockitokotlin2.any
 import com.nhaarman.mockitokotlin2.mock
 import com.nhaarman.mockitokotlin2.verify
 import org.junit.Before
@@ -19,8 +18,29 @@ class MainViewModelTest {
     }
 
     @Test
-    fun `sendEmail calls repository`() {
+    fun `sendReport calls repository`() {
         mainViewModel.sendReport(Report())
-        verify(mockRepository).sendEmail(any())
+        verify(mockRepository).sendEmail("")
+    }
+
+    @Test
+    fun `sendReport transforms Report into String`() {
+        val report = Report(
+            0,
+            "Straße",
+            "BMW",
+            "blue",
+            "B-MW-23",
+            "Parked on bike lane",
+            "3",
+            true,
+            "Mr. Smith",
+            "User Straße",
+            "12045",
+            "1234567890"
+        )
+
+        mainViewModel.sendReport(report)
+        verify(mockRepository).sendEmail("Straße, BMW, blue")
     }
 }
