@@ -12,5 +12,6 @@ data class Report(
     var fullName: String = "",
     var userAddress: String = "",
     var userPostalCode: String = "",
-    var phoneNumber: String = ""
+    var phoneNumber: String = "",
+    var userEmail: String = ""
 )
