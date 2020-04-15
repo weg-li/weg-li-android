@@ -78,7 +78,7 @@
                 app:layout_constraintTop_toTopOf="@id/carTypeLabel" />
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/car_color"
+                android:id="@+id/carColorLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/standard_16dp"
@@ -89,13 +89,14 @@
                 app:layout_constraintTop_toBottomOf="@id/carTypeSpinner">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/carColorText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/color" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/car_license_plate"
+                android:id="@+id/carLicenseLayout"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/standard_16dp"
@@ -103,9 +104,10 @@
                 android:layout_marginRight="@dimen/standard_16dp"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/car_color">
+                app:layout_constraintTop_toBottomOf="@id/carColorLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/carLicenseText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/license_plate" />
@@ -121,7 +123,7 @@
                 android:textColor="@color/black"
                 android:textSize="@dimen/header_24sp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/car_license_plate" />
+                app:layout_constraintTop_toBottomOf="@id/carLicenseLayout" />
 
             <androidx.appcompat.widget.AppCompatSpinner
                 android:id="@+id/violationSpinner"

@@ -6,6 +6,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import com.github.weg_li_android.data.api.ApiHelper
 import com.github.weg_li_android.data.api.ApiServiceImpl
@@ -20,17 +21,32 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        setupViewModel()
+
+        setupCarTypeSpinner()
+        carColorText.addTextChangedListener {
+            mainViewModel.colorSelected(it.toString())
+        }
+        carLicenseText.addTextChangedListener {
+            mainViewModel.licenseSelected(it.toString())
+        }
+        setupViolationSpinner()
+        durationText.addTextChangedListener {
+            mainViewModel.durationSelected(it.toString())
+        }
+        obstructionSwitch.setOnCheckedChangeListener { _, isChecked ->
+            mainViewModel.obstructionSelected(
+                isChecked
+            )
+        }
+        sendButton.setOnClickListener { mainViewModel.sendReport() }
+    }
+
+    private fun setupViewModel() {
         mainViewModel = ViewModelProviders.of(
             this,
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
         ).get(MainViewModel::class.java)
-
-        setupCarTypeSpinner()
-        setupViolationSpinner()
-        durationText.setOnClickListener {
-        }
-
-        sendButton.setOnClickListener { mainViewModel.sendReport() }
     }
 
     private fun setupCarTypeSpinner() {
