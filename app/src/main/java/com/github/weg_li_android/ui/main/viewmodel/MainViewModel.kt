@@ -23,4 +23,20 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun violationSelected(violation: String) {
         report.violation = violation
     }
+
+    fun colorSelected(color: String) {
+        report.color = color
+    }
+
+    fun licenseSelected(license: String) {
+        report.license = license
+    }
+
+    fun durationSelected(duration: String) {
+        report.duration = duration
+    }
+
+    fun obstructionSelected(obstruction: Boolean) {
+        report.obstructionOthers = obstruction
+    }
 }

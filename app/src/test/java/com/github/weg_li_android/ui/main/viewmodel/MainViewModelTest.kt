@@ -37,4 +37,32 @@ class MainViewModelTest {
         mainViewModel.typeSelected(violation)
         assertEquals(violation, mainViewModel.getReport().type)
     }
+
+    @Test
+    fun `color selection updates report`() {
+        val color = "blue"
+        mainViewModel.colorSelected(color)
+        assertEquals(color, mainViewModel.getReport().color)
+    }
+
+    @Test
+    fun `license selection updates report`() {
+        val license = "B-23-kla"
+        mainViewModel.licenseSelected(license)
+        assertEquals(license, mainViewModel.getReport().license)
+    }
+
+    @Test
+    fun `duration selection updates report`() {
+        val duration = "4"
+        mainViewModel.durationSelected(duration)
+        assertEquals(duration, mainViewModel.getReport().duration)
+    }
+
+    @Test
+    fun `obstruction selection updates report`() {
+        val obstruction = true
+        mainViewModel.obstructionSelected(obstruction)
+        assertEquals(obstruction, mainViewModel.getReport().obstructionOthers)
+    }
 }
