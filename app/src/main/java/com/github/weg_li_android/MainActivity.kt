@@ -7,6 +7,9 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProviders
+import com.github.weg_li_android.data.api.ApiHelper
+import com.github.weg_li_android.data.api.ApiServiceImpl
+import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -22,7 +25,10 @@ class MainActivity : AppCompatActivity() {
         durationText.setOnClickListener {
         }
 
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
+        mainViewModel = ViewModelProviders.of(
+            this,
+            ViewModelFactory(ApiHelper(ApiServiceImpl()))
+        ).get(MainViewModel::class.java)
         sendButton.setOnClickListener { mainViewModel.sendReport() }
     }
 
