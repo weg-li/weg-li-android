@@ -14,9 +14,13 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         repository.sendEmail(report.getEmail())
     }
 
+    fun getReport() = report
+
     fun typeSelected(type: String) {
         report.type = type
     }
 
-    fun getReport() = report
+    fun violationSelected(violation: String) {
+        report.violation = violation
+    }
 }

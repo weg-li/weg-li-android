@@ -30,4 +30,11 @@ class MainViewModelTest {
         mainViewModel.typeSelected(type)
         assertEquals(type, mainViewModel.getReport().type)
     }
+
+    @Test
+    fun `violationSelected updates report`() {
+        val violation = "Auf dem Radweg geparkt"
+        mainViewModel.typeSelected(violation)
+        assertEquals(violation, mainViewModel.getReport().type)
+    }
 }
