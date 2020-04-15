@@ -7,14 +7,12 @@ import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.lifecycle.ViewModelProviders
-import com.github.weg_li_android.data.model.Report
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
-    private val report = Report()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +23,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         mainViewModel = ViewModelProviders.of(this).get(MainViewModel::class.java)
-        sendButton.setOnClickListener { mainViewModel.sendReport(report) }
+        sendButton.setOnClickListener { mainViewModel.sendReport() }
     }
 
     private fun setupCarTypeSpinner() {
@@ -44,7 +42,7 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                report.type = (view as AppCompatTextView).text.toString()
+                mainViewModel.typeSelected((view as AppCompatTextView).text.toString())
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}
