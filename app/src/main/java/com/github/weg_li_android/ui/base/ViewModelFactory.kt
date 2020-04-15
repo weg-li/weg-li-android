@@ -12,6 +12,6 @@ class ViewModelFactory(private val apiHelper: ApiHelper) : ViewModelProvider.Fac
             @Suppress("UNCHECKED_CAST")
             return MainViewModel(Repository(apiHelper)) as T
         }
-        throw IllegalArgumentException("Unkown class name")
+        throw IllegalArgumentException("Unknown class name")
     }
 }
