@@ -3,6 +3,7 @@ package com.github.weg_li_android.data.model
 import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.github.weg_li_android.BR
+import android.graphics.Bitmap
 
 class Report(
     val id: Int = 0,
@@ -26,6 +27,8 @@ class Report(
             field = value
             notifyPropertyChanged(BR.license)
         }
+
+    val violationPhotos: MutableList<Bitmap> = mutableListOf()
 
     fun getEmail(): String {
         val emailBuilder = StringBuilder()

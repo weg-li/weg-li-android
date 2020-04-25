@@ -7,7 +7,7 @@
     tools:context=".MainActivity">
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/descriptionCardView"
+        android:id="@+id/photoCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/standard_16dp"
@@ -16,6 +16,89 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:id="@+id/photos_status_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_16dp"
+                android:layout_marginTop="@dimen/standard_16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_baseline_error_24" />
+
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/photos_header_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/standard_16dp"
+                android:text="@string/photos"
+                android:textColor="@color/black"
+                android:textSize="@dimen/header_24sp"
+                app:layout_constraintBottom_toBottomOf="@id/photos_status_image"
+                app:layout_constraintLeft_toRightOf="@id/photos_status_image"
+                app:layout_constraintTop_toTopOf="@id/photos_status_image" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/photos_grid"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/photos_header_text">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+
+            <TextView
+                android:id="@+id/photos_description"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@string/photos_description"
+                app:layout_constraintStart_toStartOf="@+id/photos_grid"
+                app:layout_constraintTop_toBottomOf="@+id/photos_grid" />
+
+            <Button
+                android:id="@+id/take_picture_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="16dp"
+                android:text="@string/take_picture"
+                android:theme="@style/PrimaryFlatButton"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/photos_description" />
+
+            <Button
+                android:id="@+id/add_picture_button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:text="@string/add_picture"
+                android:theme="@style/PrimaryFlatButton"
+                app:layout_constraintBottom_toBottomOf="@id/take_picture_button"
+                app:layout_constraintLeft_toRightOf="@id/take_picture_button" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/descriptionCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/standard_16dp"
+        android:layout_marginTop="@dimen/standard_16dp"
+        android:layout_marginRight="@dimen/standard_16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/photoCardView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"

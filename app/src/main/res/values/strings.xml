@@ -10,7 +10,11 @@
     <string name="duration_label">Stand länger als</string>
     <string name="hours">Stunden</string>
     <string name="obstruction_label">Behinderung anderer Verkehrsteilnehmer</string>
+    <string name="photos">Fotos</string>
     <string name="send_button">Anzeige aufgeben</string>
+    <string name="add_picture">Foto hinzufügen</string>
+    <string name="take_picture">Foto aufnehmen</string>
+    <string name="photos_description">Es sollte der Verstoß, das Fahrzeug und das Nummernschild klar erkennbar sein. Füge mindestens zwei Fotos hinzu.</string>
 
     <string-array name="car_type_list">
         <item>Adria</item>
