@@ -1,15 +1,17 @@
 package com.github.weg_li_android
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.graphics.Bitmap
 import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
-import android.provider.MediaStore
 import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
@@ -43,7 +45,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
             ViewModelFactory(ApiHelper(ApiServiceImpl()))
         ).get(MainViewModel::class.java)
 
-        setupPhotoRecyclerView()
+        setupPhotoCard(this)
         setupCarTypeSpinner()
         setupViolationSpinner()
         durationText.setOnClickListener {
@@ -83,6 +85,15 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                 mainViewModel.changeLicense(s.toString())
             }
         })
+    }
+
+    private fun setupPhotoCard(context : Context) {
+        setupPhotoRecyclerView()
+
+        val pm: PackageManager = context.packageManager
+        if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
+            take_picture_button.visibility = View.GONE
+        }
     }
 
     private fun setupPhotoRecyclerView() {
