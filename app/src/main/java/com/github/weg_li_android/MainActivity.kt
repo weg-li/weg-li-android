@@ -24,21 +24,27 @@ class MainActivity : AppCompatActivity() {
         setupViewModel()
 
         setupCarTypeSpinner()
+
         carColorText.addTextChangedListener {
             mainViewModel.colorSelected(it.toString())
         }
+
         carLicenseText.addTextChangedListener {
             mainViewModel.licenseSelected(it.toString())
         }
+
         setupViolationSpinner()
+
         durationText.addTextChangedListener {
             mainViewModel.durationSelected(it.toString())
         }
+
         obstructionSwitch.setOnCheckedChangeListener { _, isChecked ->
             mainViewModel.obstructionSelected(
                 isChecked
             )
         }
+
         sendButton.setOnClickListener { mainViewModel.sendReport() }
     }
 
