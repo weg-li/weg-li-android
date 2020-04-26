@@ -3,11 +3,15 @@ package com.github.weg_li_android.ui.main.viewmodel
 import androidx.lifecycle.ViewModel
 import com.github.weg_li_android.data.model.Report
 import com.github.weg_li_android.data.repository.Repository
+import com.github.weg_li_android.utils.PropertyAwareMutableLiveData
 import timber.log.Timber
 
 class MainViewModel(private val repository: Repository) : ViewModel() {
 
     private val report = Report()
+    val propertyAwareReport = PropertyAwareMutableLiveData<Report>().apply {
+        value = report
+    }
 
     fun sendReport() {
         Timber.d("Report is:%s", report.toString())
@@ -15,8 +19,10 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     }
 
     fun typeSelected(type: String) {
-        report.type = type
+        report.type =  type
     }
 
-    fun getReport() = report
+    fun changeLicense(label: String) {
+        report.license  = label
+    }
 }

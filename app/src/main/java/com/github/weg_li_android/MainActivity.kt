@@ -1,14 +1,18 @@
 package com.github.weg_li_android
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import com.github.weg_li_android.data.api.ApiHelper
 import com.github.weg_li_android.data.api.ApiServiceImpl
+import com.github.weg_li_android.data.model.Report
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,6 +35,39 @@ class MainActivity : AppCompatActivity() {
         }
 
         sendButton.setOnClickListener { mainViewModel.sendReport() }
+
+        val licenseObserver = Observer<Report> { newName ->
+            if(newName.license != "") {
+                status_image.setImageResource(R.drawable.ic_baseline_check_circle_24)
+            }
+            else {
+                status_image.setImageResource(R.drawable.ic_baseline_error_24)
+            }
+        }
+
+        mainViewModel.propertyAwareReport.observe(this, licenseObserver)
+
+        car_license_plate_edit_text.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(
+                s: CharSequence,
+                start: Int,
+                count: Int,
+                after: Int
+            ) {
+            }
+
+            override fun onTextChanged(
+                s: CharSequence,
+                start: Int,
+                before: Int,
+                count: Int
+            ) {
+            }
+
+            override fun afterTextChanged(s: Editable) {
+                mainViewModel.changeLicense(s.toString())
+            }
+        })
     }
 
     private fun setupCarTypeSpinner() {

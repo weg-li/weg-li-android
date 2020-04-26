@@ -1,20 +1,31 @@
 package com.github.weg_li_android.data.model
 
-data class Report(
+import androidx.databinding.BaseObservable
+import androidx.databinding.Bindable
+import com.github.weg_li_android.BR
+
+class Report(
     val id: Int = 0,
     var address: String = "",
     var type: String = "",
     var color: String = "",
-    var license: String = "",
     var violation: String = "",
     var duration: String = "",
+    license: String = "",
     var obstructionOthers: Boolean = false,
     var fullName: String = "",
     var userAddress: String = "",
     var userPostalCode: String = "",
     var phoneNumber: String = "",
     var userEmail: String = ""
-) {
+) : BaseObservable() {
+
+    @Bindable
+    var license : String = license
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.license)
+        }
 
     fun getEmail(): String {
         val emailBuilder = StringBuilder()

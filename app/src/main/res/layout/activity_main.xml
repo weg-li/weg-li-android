@@ -106,6 +106,7 @@
                 app:layout_constraintTop_toBottomOf="@id/car_color">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/car_license_plate_edit_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="@string/license_plate" />
