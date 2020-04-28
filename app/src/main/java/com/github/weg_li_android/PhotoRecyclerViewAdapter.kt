@@ -58,15 +58,6 @@ class PhotoRecyclerViewAdapter internal constructor(
         }
     }
 
-    fun getItem(id: Int): Bitmap {
-        return mData[id]
-    }
-
-    fun addItem(image: Bitmap) : Int {
-        mData.add(image)
-        return mData.lastIndex
-    }
-
     // allows clicks events to be caught
     fun setClickListener(itemClickListener: ItemClickListener?) {
         mClickListener = itemClickListener

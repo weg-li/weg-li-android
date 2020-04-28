@@ -94,6 +94,17 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
             take_picture_button.visibility = View.GONE
         }
+
+        val photosCountObserver = Observer<Report> { newName ->
+            if(newName.violationPhotos.size >= 2) {
+                photos_status_image.setImageResource(R.drawable.ic_baseline_check_circle_24)
+            }
+            else {
+                photos_status_image.setImageResource(R.drawable.ic_baseline_error_24)
+            }
+        }
+
+        mainViewModel.propertyAwareReport.observe(this, photosCountObserver)
     }
 
     private fun setupPhotoRecyclerView() {
@@ -200,7 +211,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                                     }
                                 val bitmap = source?.let { ImageDecoder.decodeBitmap(it) }
                                 if (bitmap != null) {
-                                    val insertIndex = photoAdapter.addItem(bitmap)
+                                    val insertIndex = mainViewModel.addViolationPhoto(bitmap)
                                     photoAdapter.notifyItemInserted(insertIndex)
                                 }
                             }
@@ -218,7 +229,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                 }
                 takeImage -> {
                     val bitmap = data.extras?.get("data") as Bitmap
-                    val insertIndex = photoAdapter.addItem(bitmap)
+                    val insertIndex = mainViewModel.addViolationPhoto(bitmap)
                     photoAdapter.notifyItemInserted(insertIndex)
                 }
             }

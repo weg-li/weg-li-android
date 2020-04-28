@@ -1,6 +1,7 @@
 package com.github.weg_li_android.ui.main.viewmodel
 
 import android.graphics.Bitmap
+import androidx.databinding.library.baseAdapters.BR.violationPhotos
 import androidx.lifecycle.ViewModel
 import com.github.weg_li_android.data.model.Report
 import com.github.weg_li_android.data.repository.Repository
@@ -21,6 +22,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun getViolationPhotos() : MutableList<Bitmap> {
         return report.violationPhotos
+    }
+
+    fun addViolationPhoto(photo : Bitmap) : Int {
+        report.violationPhotos.add(photo)
+        report.notifyPropertyChanged(violationPhotos)
+        return report.violationPhotos.size
     }
 
     fun typeSelected(type: String) {

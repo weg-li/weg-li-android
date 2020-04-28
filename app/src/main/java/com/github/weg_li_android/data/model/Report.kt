@@ -13,6 +13,7 @@ class Report(
     var violation: String = "",
     var duration: String = "",
     license: String = "",
+    violationPhotos: MutableList<Bitmap> = mutableListOf(),
     var obstructionOthers: Boolean = false,
     var fullName: String = "",
     var userAddress: String = "",
@@ -28,7 +29,12 @@ class Report(
             notifyPropertyChanged(BR.license)
         }
 
-    val violationPhotos: MutableList<Bitmap> = mutableListOf()
+    @Bindable
+    var violationPhotos: MutableList<Bitmap> = violationPhotos
+        set(value) {
+            field = value
+            notifyPropertyChanged(BR.license)
+        }
 
     fun getEmail(): String {
         val emailBuilder = StringBuilder()
