@@ -7,33 +7,62 @@ data class Report(
     var color: String = "",
     var license: String = "",
     var violation: String = "",
+    var date: String = "",
     var duration: String = "",
+    var carWasEmpty: Boolean = false,
     var obstructionOthers: Boolean = false,
-    var fullName: String = "",
+    var hints: String = "",
+    var userFullName: String = "",
     var userAddress: String = "",
     var userPostalCode: String = "",
-    var phoneNumber: String = "",
+    var userPhoneNumber: String = "",
     var userEmail: String = ""
 ) {
 
     fun getEmail(): String {
         val emailBuilder = StringBuilder()
         emailBuilder.append(greetings)
+        emailBuilder.append(getDetails())
         emailBuilder.append(
             explanationWithUserEmail.format(
                 userEmail,
-                "www.weg-li.de",
-                fullName
+                "https://www.weg-li.de",
+                userFullName
             )
         )
         return emailBuilder.toString()
     }
 
-    companion object {
-        const val greetings = """
-Sehr geehrte Damen und Herren,
+    private fun getDetails(): String {
 
-hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:"""
+        var carWasEmptyString = ""
+        if (carWasEmpty) carWasEmptyString = "Das Fahrzeug war verlassen."
+
+        return """
+            
+            Kennzeichen: $license
+            Marke: $type
+            Farbe: $color
+            Adresse: $address
+            Verstoß: $violation
+            Tatzeit: $date
+            Zeitraum: $duration
+            $carWasEmptyString
+            $hints
+            
+            Zeuge:
+            Name: $userFullName
+            Anschrift: $userAddress, $userPostalCode
+            E-Mail: $userEmail
+            Telefon: $userPhoneNumber
+        """.trimIndent()
+    }
+
+    companion object {
+        const val greetings = """Sehr geehrte Damen und Herren,
+
+hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
+"""
 
         const val explanationWithUserEmail = """
 
@@ -54,6 +83,5 @@ Diese Anzeige können Sie online abrufen, dort finden sich auch die Beweisfotos 
 Mit freundlichen Grüßen
 
 %s"""
-
     }
 }
