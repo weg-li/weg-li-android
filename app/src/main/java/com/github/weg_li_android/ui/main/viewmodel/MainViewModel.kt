@@ -14,9 +14,29 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         repository.sendEmail(report.getEmail())
     }
 
+    fun getReport() = report
+
     fun typeSelected(type: String) {
         report.type = type
     }
 
-    fun getReport() = report
+    fun violationSelected(violation: String) {
+        report.violation = violation
+    }
+
+    fun colorSelected(color: String) {
+        report.color = color
+    }
+
+    fun licenseSelected(license: String) {
+        report.license = license
+    }
+
+    fun durationSelected(duration: String) {
+        report.duration = duration
+    }
+
+    fun obstructionSelected(obstruction: Boolean) {
+        report.obstructionOthers = obstruction
+    }
 }
