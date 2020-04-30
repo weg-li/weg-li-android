@@ -45,6 +45,12 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        carWasEmptySwitch.setOnCheckedChangeListener { _, isChecked ->
+            mainViewModel.carWasEmptySelected(
+                isChecked
+            )
+        }
+
         sendButton.setOnClickListener { mainViewModel.sendReport() }
     }
 
