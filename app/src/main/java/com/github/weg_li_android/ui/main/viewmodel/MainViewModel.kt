@@ -1,6 +1,6 @@
 package com.github.weg_li_android.ui.main.viewmodel
 
-import android.graphics.Bitmap
+import android.net.Uri
 import androidx.databinding.library.baseAdapters.BR.violationPhotos
 import androidx.lifecycle.ViewModel
 import com.github.weg_li_android.data.model.Report
@@ -20,12 +20,12 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         repository.sendEmail(report.getEmail())
     }
 
-    fun getViolationPhotos() : MutableList<Bitmap> {
+    fun getViolationPhotos() : MutableList<Uri> {
         return report.violationPhotos
     }
 
-    fun addViolationPhoto(photo : Bitmap) : Int {
-        report.violationPhotos.add(photo)
+    fun addViolationPhoto(photoUri : Uri) : Int {
+        report.violationPhotos.add(photoUri)
         report.notifyPropertyChanged(violationPhotos)
         return report.violationPhotos.size
     }

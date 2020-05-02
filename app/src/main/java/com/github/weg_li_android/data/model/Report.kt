@@ -4,6 +4,7 @@ import androidx.databinding.BaseObservable
 import androidx.databinding.Bindable
 import com.github.weg_li_android.BR
 import android.graphics.Bitmap
+import android.net.Uri
 
 class Report(
     val id: Int = 0,
@@ -13,7 +14,7 @@ class Report(
     var violation: String = "",
     var duration: String = "",
     license: String = "",
-    violationPhotos: MutableList<Bitmap> = mutableListOf(),
+    violationPhotos: MutableList<Uri> = mutableListOf(),
     var obstructionOthers: Boolean = false,
     var fullName: String = "",
     var userAddress: String = "",
@@ -30,7 +31,7 @@ class Report(
         }
 
     @Bindable
-    var violationPhotos: MutableList<Bitmap> = violationPhotos
+    var violationPhotos: MutableList<Uri> = violationPhotos
         set(value) {
             field = value
             notifyPropertyChanged(BR.license)

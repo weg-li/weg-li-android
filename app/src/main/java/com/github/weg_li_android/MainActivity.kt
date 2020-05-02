@@ -209,26 +209,10 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                         val count = data.clipData!!.itemCount
                         for (i in 0 until count) {
                             val imageUri: Uri? = data.clipData!!.getItemAt(i).uri
-                            if (Build.VERSION.SDK_INT > 28) {
-                                val source =
-                                    imageUri?.let {
-                                        ImageDecoder.createSource(
-                                            this.contentResolver,
-                                            it
-                                        )
-                                    }
-                                val bitmap = source?.let { ImageDecoder.decodeBitmap(it) }
-                                if (bitmap != null) {
-                                    val insertIndex = mainViewModel.addViolationPhoto(bitmap)
-                                    photoAdapter.notifyItemInserted(insertIndex)
-                                }
+                            val insertIndex = imageUri?.let { mainViewModel.addViolationPhoto(it) }
+                            if (insertIndex != null) {
+                                photoAdapter.notifyItemInserted(insertIndex)
                             }
-
-                            /* we should add this for SDK_INT <= 28
-                            val bitmap = MediaStore.Images.Media.getBitmap(
-                                this.contentResolver,
-                                imageUri
-                            )*/
                         }
                     } else if (data.data != null) {
                         val mImageUri: Uri = data.data!! // TODO: Add something useful here.
@@ -240,12 +224,12 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                     if (isStoragePermissionGranted()) {
                         val imageUri : Uri = saveImageBitmap(bitmap, System.currentTimeMillis().toString())
                         Timber.e(imageUri.toString())
+                        val insertIndex = mainViewModel.addViolationPhoto(imageUri)
+                        photoAdapter.notifyItemInserted(insertIndex)
                     } // TODO: What do if not granted
                     else {
                         Timber.e("Not granted")
                     }
-                    val insertIndex = mainViewModel.addViolationPhoto(bitmap)
-                    photoAdapter.notifyItemInserted(insertIndex)
                 }
             }
         }
