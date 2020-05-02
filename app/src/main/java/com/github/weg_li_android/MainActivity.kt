@@ -1,6 +1,9 @@
 package com.github.weg_li_android
 
+import android.Manifest
 import android.app.Activity
+import android.content.ContentResolver
+import android.content.ContentValues
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -9,6 +12,7 @@ import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
@@ -18,6 +22,7 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,6 +34,8 @@ import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
+import java.io.OutputStream
+import java.util.*
 
 class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickListener {
 
@@ -46,6 +53,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         ).get(MainViewModel::class.java)
 
         setupPhotoCard(this)
+
         setupCarTypeSpinner()
         setupViolationSpinner()
         durationText.setOnClickListener {
@@ -229,10 +237,60 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                 }
                 takeImage -> {
                     val bitmap = data.extras?.get("data") as Bitmap
+                    if (isStoragePermissionGranted()) {
+                        val imageUri : Uri = saveImageBitmap(bitmap, System.currentTimeMillis().toString())
+                        Timber.e(imageUri.toString())
+                    } // TODO: What do if not granted
+                    else {
+                        Timber.e("Not granted")
+                    }
                     val insertIndex = mainViewModel.addViolationPhoto(bitmap)
                     photoAdapter.notifyItemInserted(insertIndex)
                 }
             }
         }
     }
+
+    private fun isStoragePermissionGranted(): Boolean {
+        val tag = "Storage Permission"
+        return if (Build.VERSION.SDK_INT >= 23) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                == PackageManager.PERMISSION_GRANTED
+            ) {
+                Timber.v(tag, "Permission is granted")
+                true
+            } else {
+                Timber.v(tag, "Permission is revoked")
+                ActivityCompat.requestPermissions(
+                    this,
+                    arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                    1
+                )
+                false
+            }
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Timber.v(tag, "Permission is granted")
+            true
+        }
+    }
+
+    private fun saveImageBitmap(image_bitmap: Bitmap, image_name: String) : Uri {
+        val fos: OutputStream
+        val resolver: ContentResolver = contentResolver
+        val contentValues = ContentValues().apply {
+            put(MediaStore.MediaColumns.DISPLAY_NAME, image_name)
+            put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) { //this one
+                put(MediaStore.MediaColumns.RELATIVE_PATH, Environment.DIRECTORY_PICTURES + '/' + applicationInfo.loadLabel(packageManager).toString())
+                put(MediaStore.MediaColumns.IS_PENDING, 1)
+            }
+        }
+        val imageUri: Uri =
+            resolver.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, contentValues)!!
+        fos = resolver.openOutputStream(Objects.requireNonNull(imageUri))!!
+        image_bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos)
+        Objects.requireNonNull(fos).close()
+        return imageUri
+    }
+
 }
