@@ -8,7 +8,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.graphics.Bitmap
-import android.graphics.ImageDecoder
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
@@ -16,22 +15,25 @@ import android.os.Environment
 import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.DisplayMetrics
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.AdapterView
+import android.widget.AdapterView.OnItemLongClickListener
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.github.weg_li_android.data.api.ApiHelper
 import com.github.weg_li_android.data.api.ApiServiceImpl
 import com.github.weg_li_android.data.model.Report
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
+import com.github.weg_li_android.utils.AutoFitGridLayoutManager
 import kotlinx.android.synthetic.main.activity_main.*
 import timber.log.Timber
 import java.io.OutputStream
@@ -96,7 +98,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
     }
 
     private fun setupPhotoCard(context : Context) {
-        setupPhotoRecyclerView()
+        setupPhotoRecyclerView(context)
 
         val pm: PackageManager = context.packageManager
         if (!pm.hasSystemFeature(PackageManager.FEATURE_CAMERA)) {
@@ -115,13 +117,47 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         mainViewModel.propertyAwareReport.observe(this, photosCountObserver)
     }
 
-    private fun setupPhotoRecyclerView() {
+    fun convertPixelsToDp(px: Float, context: Context): Float {
+        return px / (context.resources
+            .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+    private fun convertDpToPixel(dp: Float, context: Context): Float {
+        return dp * (context.resources
+            .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+
+    private fun setupPhotoRecyclerView(context: Context) {
         val recyclerView = findViewById<RecyclerView>(R.id.photos_grid)
-        val numberOfColumns = 3
-        recyclerView.layoutManager = GridLayoutManager(this, numberOfColumns)
+
+        val layoutManager  = AutoFitGridLayoutManager(this, convertDpToPixel(120f, context).toInt())
+        recyclerView.layoutManager = layoutManager
+
+        recyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
+            override fun onGlobalLayout() {
+                recyclerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                //layoutManager.setColumnWidth(convertPixelsToDp(recyclerView.width.toFloat(), context).toInt())
+                Timber.e(convertPixelsToDp(recyclerView.width.toFloat(), context).toString()) //height is ready
+                //Timber.e("Width"+photo_list_item.width)
+            }
+        })
+
+
+
         photoAdapter = PhotoRecyclerViewAdapter(this, mainViewModel.getViolationPhotos())
         photoAdapter.setClickListener(this)
         recyclerView.adapter = photoAdapter
+
+        photoAdapter
+
+        recyclerView.setOnLongClickListener(View.OnLongClickListener { v ->
+            Timber.e("blah")
+
+            false
+        })
+
+
 
         take_picture_button.setOnTouchListener { v, event ->
             when (event.action) {

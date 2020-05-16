@@ -3,8 +3,10 @@ package com.github.weg_li_android
 import android.content.Context
 import android.content.res.Resources
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
+import android.media.ThumbnailUtils
 import android.net.Uri
+import android.util.DisplayMetrics
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +14,9 @@ import androidx.annotation.NonNull
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.recyclerview.widget.RecyclerView
+import timber.log.Timber
 import java.io.FileNotFoundException
 import java.io.IOException
-import java.io.InputStream
 import kotlin.math.floor
 
 
@@ -48,27 +50,18 @@ class PhotoRecyclerViewAdapter internal constructor(
 
     @Throws(FileNotFoundException::class, IOException::class)
     fun getThumbnail(uri: Uri?): Bitmap? {
-        var input: InputStream? = uri?.let { context!!.contentResolver.openInputStream(it) }
-        val onlyBoundsOptions = BitmapFactory.Options()
-        onlyBoundsOptions.inJustDecodeBounds = true
-        onlyBoundsOptions.inPreferredConfig = Bitmap.Config.ARGB_8888 //optional
-        BitmapFactory.decodeStream(input, null, onlyBoundsOptions)
-        input?.close()
-        if (onlyBoundsOptions.outWidth == -1 || onlyBoundsOptions.outHeight == -1) {
-            return null
+        val thumbnailSize = convertDpToPixel(120f, context!!).toInt()
+        val thumbnail: Bitmap? =
+            uri?.let {
+                context.contentResolver!!.loadThumbnail(
+                    it, Size(thumbnailSize, thumbnailSize), null)
+            }.run {
+                ThumbnailUtils.extractThumbnail(this, thumbnailSize, thumbnailSize);
+            }
+        if (thumbnail != null) {
+            Timber.e(thumbnail.width.toString()+"-"+thumbnail.height.toString()+"shouldbe"+thumbnailSize.toString())
         }
-        val thumbnailSize = 30
-        val originalSize =
-            if (onlyBoundsOptions.outHeight > onlyBoundsOptions.outWidth) onlyBoundsOptions.outHeight else onlyBoundsOptions.outWidth
-        val ratio =
-            if (originalSize > thumbnailSize) originalSize.toDouble() / thumbnailSize.toDouble() else 1.0
-        val bitmapOptions = BitmapFactory.Options()
-        bitmapOptions.inSampleSize = getPowerOfTwoForSampleRatio(ratio)
-        bitmapOptions.inPreferredConfig = Bitmap.Config.ARGB_8888 //
-        input = uri?.let { context!!.contentResolver.openInputStream(it) }
-        val bitmap = BitmapFactory.decodeStream(input, null, bitmapOptions)
-        input?.close()
-        return bitmap
+        return thumbnail
     }
 
     private fun getPowerOfTwoForSampleRatio(ratio: Double): Int {
@@ -80,6 +73,11 @@ class PhotoRecyclerViewAdapter internal constructor(
     // total number of cells
     override fun getItemCount(): Int {
         return data.size
+    }
+
+    private fun convertDpToPixel(dp: Float, context: Context): Float {
+        return dp * (context.resources
+            .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
     // stores and recycles views as they are scrolled off screen
@@ -99,7 +97,6 @@ class PhotoRecyclerViewAdapter internal constructor(
     fun setClickListener(itemClickListener: ItemClickListener?) {
         mClickListener = itemClickListener
     }
-
     // parent activity will implement this method to respond to click events
     interface ItemClickListener {
         fun onItemClick(view: View?, position: Int)
