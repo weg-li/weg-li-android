@@ -68,8 +68,11 @@ class MainActivity : AppCompatActivity() {
 //                dateText.setText(format.format(chosenDate))
 
         val timePickerDialog =
-            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-                dateText.setText("" + hourOfDay + ":" + minute)
+            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                val formattedTime = String.format(
+                    resources.getString(R.string.formatted_time, hourOfDay, minute)
+                )
+                dateText.setText(formattedTime)
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
         timePickerDialog.show()
     }
