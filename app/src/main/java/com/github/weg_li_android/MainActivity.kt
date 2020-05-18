@@ -38,7 +38,7 @@ class MainActivity : AppCompatActivity() {
         setupViolationSpinner()
 
         dateText.setOnClickListener {
-            openDatePickerDialog()
+            openTimePickerDialog()
         }
 
         durationText.addTextChangedListener {
@@ -60,12 +60,8 @@ class MainActivity : AppCompatActivity() {
         sendButton.setOnClickListener { mainViewModel.sendReport() }
     }
 
-    private fun openDatePickerDialog() {
+    private fun openTimePickerDialog() {
         val calendar = Calendar.getInstance()
-
-//        val chosenDate = Calendar.getInstance()
-//                val format = SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a", Locale.GERMAN)
-//                dateText.setText(format.format(chosenDate))
 
         val timePickerDialog =
             TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
