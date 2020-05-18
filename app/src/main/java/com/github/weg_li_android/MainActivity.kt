@@ -1,5 +1,6 @@
 package com.github.weg_li_android
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -13,6 +14,7 @@ import com.github.weg_li_android.data.api.ApiServiceImpl
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +37,10 @@ class MainActivity : AppCompatActivity() {
 
         setupViolationSpinner()
 
+        dateText.setOnClickListener {
+            openDatePickerDialog()
+        }
+
         durationText.addTextChangedListener {
             mainViewModel.durationSelected(it.toString())
         }
@@ -52,6 +58,20 @@ class MainActivity : AppCompatActivity() {
         }
 
         sendButton.setOnClickListener { mainViewModel.sendReport() }
+    }
+
+    private fun openDatePickerDialog() {
+        val calendar = Calendar.getInstance()
+
+//        val chosenDate = Calendar.getInstance()
+//                val format = SimpleDateFormat("EEEE, MMMM d, yyyy 'at' h:mm a", Locale.GERMAN)
+//                dateText.setText(format.format(chosenDate))
+
+        val timePickerDialog =
+            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
+                dateText.setText("" + hourOfDay + ":" + minute)
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
+        timePickerDialog.show()
     }
 
     private fun setupViewModel() {
