@@ -1,6 +1,7 @@
 package com.github.weg_li_android
 
 import android.app.TimePickerDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -56,7 +57,23 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
-        sendButton.setOnClickListener { mainViewModel.sendReport() }
+        sendButton.setOnClickListener {
+            startEmailIntent()
+        }
+    }
+
+    private fun startEmailIntent() {
+        val intent = Intent(Intent.ACTION_SEND).apply {
+            type = "*/*"
+            //TODO change to correct address
+            putExtra(Intent.EXTRA_EMAIL, "name@email.de")
+            putExtra(Intent.EXTRA_SUBJECT, mainViewModel.getReport().getEmail())
+            //TODO Add photos
+            //putExtra(Intent.EXTRA_STREAM, attachment)
+        }
+        if (intent.resolveActivity(packageManager) != null) {
+            startActivity(intent)
+        }
     }
 
     private fun openTimePickerDialog() {
