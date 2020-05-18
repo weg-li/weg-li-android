@@ -7,7 +7,7 @@ data class Report(
     var color: String = "",
     var license: String = "",
     var violation: String = "",
-    var date: String = "",
+    var time: String = "",
     var duration: String = "",
     var carWasEmpty: Boolean = false,
     var obstructionOthers: Boolean = false,
@@ -45,7 +45,7 @@ data class Report(
             Farbe: $color
             Adresse: $address
             Verstoß: $violation
-            Tatzeit: $date
+            Tatzeit: $time
             Zeitraum: $duration
             $carWasEmptyString
             $hints
