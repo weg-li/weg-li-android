@@ -15,7 +15,7 @@ class ReportTest {
             color = "Braun",
             license = "b-sd-232",
             violation = "Parken auf einem Geh- und Radweg (Zeichen 240/241), mit Behinderung (z.B. Anhalten, Ausweichen, Absteigen)",
-            date = "22.04.2020 02:02",
+            time = "22.04.2020 02:02",
             duration = "02:02 ~ 02:07 (länger als 5 Minuten)",
             carWasEmpty = true,
             obstructionOthers = true,

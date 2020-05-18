@@ -11,6 +11,7 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
 
     fun sendReport() {
         Timber.d("Report is:%s", report.toString())
+        Timber.d("Full Email:%s", report.getEmail())
         repository.sendEmail(report.getEmail())
     }
 
@@ -36,7 +37,15 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         report.duration = duration
     }
 
+    fun timeSelected(time: String) {
+        report.time = time
+    }
+
     fun obstructionSelected(obstruction: Boolean) {
         report.obstructionOthers = obstruction
+    }
+
+    fun carWasEmptySelected(carWasEmpty: Boolean) {
+        report.carWasEmpty = carWasEmpty
     }
 }

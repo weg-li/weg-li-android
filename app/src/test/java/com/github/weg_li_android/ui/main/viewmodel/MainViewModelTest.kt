@@ -65,4 +65,11 @@ class MainViewModelTest {
         mainViewModel.obstructionSelected(obstruction)
         assertEquals(obstruction, mainViewModel.getReport().obstructionOthers)
     }
+
+    @Test
+    fun `carWasEmpty selection updates report`() {
+        val carWasEmpty = true
+        mainViewModel.carWasEmptySelected(carWasEmpty)
+        assertEquals(carWasEmpty, mainViewModel.getReport().carWasEmpty)
+    }
 }

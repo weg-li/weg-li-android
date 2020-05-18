@@ -11,6 +11,10 @@
     <string name="hours">Stunden</string>
     <string name="obstruction_label">Behinderung anderer Verkehrsteilnehmer</string>
     <string name="send_button">Anzeige aufgeben</string>
+    <string name="car_was_empty_label">Fahrzeug war verlassen</string>
+    <string name="date_hint">Tatzeit</string>
+    <string name="ok">Ok</string>
+    <string name="formatted_time">%1$d:%2$d</string>
 
     <string-array name="car_type_list">
         <item>Adria</item>

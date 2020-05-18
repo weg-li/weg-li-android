@@ -1,5 +1,6 @@
 package com.github.weg_li_android
 
+import android.app.TimePickerDialog
 import android.os.Bundle
 import android.view.View
 import android.widget.AdapterView
@@ -13,6 +14,8 @@ import com.github.weg_li_android.data.api.ApiServiceImpl
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -35,6 +38,8 @@ class MainActivity : AppCompatActivity() {
 
         setupViolationSpinner()
 
+        timeText.setOnClickListener { openTimePickerDialog() }
+
         durationText.addTextChangedListener {
             mainViewModel.durationSelected(it.toString())
         }
@@ -45,7 +50,28 @@ class MainActivity : AppCompatActivity() {
             )
         }
 
+        carWasEmptySwitch.setOnCheckedChangeListener { _, isChecked ->
+            mainViewModel.carWasEmptySelected(
+                isChecked
+            )
+        }
+
         sendButton.setOnClickListener { mainViewModel.sendReport() }
+    }
+
+    private fun openTimePickerDialog() {
+        val calendar = Calendar.getInstance()
+
+        val timePickerDialog =
+            TimePickerDialog(this, TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
+                val simpleDateFormat = SimpleDateFormat("dd.MM.yyyy HH:mm", Locale.GERMAN)
+                calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
+                calendar.set(Calendar.MINUTE, minute)
+                val formattedTime = simpleDateFormat.format(calendar.time)
+                timeText.setText(formattedTime)
+                mainViewModel.timeSelected(formattedTime)
+            }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
+        timePickerDialog.show()
     }
 
     private fun setupViewModel() {
