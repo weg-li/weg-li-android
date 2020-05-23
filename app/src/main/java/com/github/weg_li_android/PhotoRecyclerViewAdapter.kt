@@ -37,7 +37,7 @@ class PhotoRecyclerViewAdapter internal constructor(
             RecyclerViewAdapterOnListChangedCallback<ObservableList<Int>>(deletePhotoSet)
         )
     }
-    // inflates the cell layout from xml when needed
+
     @NonNull
     override fun onCreateViewHolder(
         @NonNull parent: ViewGroup,
@@ -55,13 +55,11 @@ class PhotoRecyclerViewAdapter internal constructor(
     ) {
         val image : Bitmap? = getThumbnail(data[position])
         holder.myAppCompatImageView.background = image!!.toDrawable(resources)
+
         if(position in deletePhotoSet) {
             holder.selectedCheckAppCompatImageView.visibility = View.VISIBLE
         }
         else holder.selectedCheckAppCompatImageView.visibility = View.GONE
-
-        //Timber.e(holder.myAppCompatImageView.image_container.children.toString())
-
     }
 
     private class RecyclerViewAdapterOnListChangedCallback<Int>(myAppCompatImageView: ObservableArrayList<kotlin.Int>) : ObservableList.OnListChangedCallback<ObservableList<Int>>() {
@@ -79,19 +77,11 @@ class PhotoRecyclerViewAdapter internal constructor(
 
         override fun onItemRangeMoved(sender: ObservableList<Int>?, fromPosition: kotlin.Int, toPosition: kotlin.Int,  itemCount: kotlin.Int) {
             Timber.e("yooo range mooved!")
-            repeat(itemCount) { i ->
-                //adapter.notifyItemMoved(fromPosition + i, toPosition + i)
-            }
         }
 
         override fun onItemRangeInserted(sender: ObservableList<Int>?, positionStart: kotlin.Int, itemCount: kotlin.Int) {
             Timber.e("yooo range inserted!")
             Timber.e("This is the new list"+sender.toString())
-            repeat(itemCount) {i ->
-                //Timber.e(mAppCompatImageView.photo_list_item.photo_selected_check.toString())
-
-                //mAppCompatImageView.photo_list_item.photo_selected_check.visibility = View.VISIBLE
-            }
             //adapter.notifyItemRangeInserted(positionStart, itemCount)
         }
 
@@ -104,7 +94,7 @@ class PhotoRecyclerViewAdapter internal constructor(
 
     @Throws(FileNotFoundException::class, IOException::class)
     fun getThumbnail(uri: Uri?): Bitmap? {
-        val thumbnailSize = convertDpToPixel(120f, context!!).toInt()
+        val thumbnailSize = 120f.convertDpToPixel(context!!).toInt()
         val thumbnail: Bitmap? =
             uri?.let {
                 context.contentResolver!!.loadThumbnail(
@@ -123,13 +113,12 @@ class PhotoRecyclerViewAdapter internal constructor(
         return data.size
     }
 
-    fun removeAtList(index : Int) {
-        //data = data.filterIndexed { index, _ ->  index in indexList}.toMutableList()
+    fun removeAt(index : Int) {
         data.removeAt(index)
     }
 
-    private fun convertDpToPixel(dp: Float, context: Context): Float {
-        return dp * (context.resources
+    private fun Float.convertDpToPixel(context: Context): Float {
+        return this * (context.resources
             .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 

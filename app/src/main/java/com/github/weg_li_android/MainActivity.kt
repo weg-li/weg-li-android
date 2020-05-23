@@ -27,8 +27,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
-import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -128,8 +126,8 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
             .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
-    private fun convertDpToPixel(dp: Float, context: Context): Float {
-        return dp * (context.resources
+    private fun Float.convertDpToPixel(context: Context): Float {
+        return this * (context.resources
             .displayMetrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
@@ -137,7 +135,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
     private fun setupPhotoRecyclerView(context: Context) {
         val recyclerView = findViewById<RecyclerView>(R.id.photos_grid)
 
-        val layoutManager  = AutoFitGridLayoutManager(this, convertDpToPixel(120f, context).toInt())
+        val layoutManager  = AutoFitGridLayoutManager(this, 120f.convertDpToPixel(context).toInt())
         recyclerView.layoutManager = layoutManager
 
         recyclerView.viewTreeObserver.addOnGlobalLayoutListener(object : OnGlobalLayoutListener {
@@ -153,14 +151,6 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         photoAdapter = PhotoRecyclerViewAdapter(this, mainViewModel.getViolationPhotos())
         photoAdapter.setClickListener(this)
         recyclerView.adapter = photoAdapter
-
-        recyclerView.setOnLongClickListener({ v ->
-            Timber.e("blah")
-
-            false
-        })
-
-
 
         take_picture_button.setOnTouchListener { v, event ->
             when (event.action) {
@@ -317,7 +307,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                     R.id.delete_button -> {
                         Timber.e("I'm here. Option1 selected, i will remove "+photoAdapter.deletePhotoSet.sorted().toString())
                         photoAdapter.deletePhotoSet.sortedDescending().forEach {
-                            photoAdapter.removeAtList(it)
+                            photoAdapter.removeAt(it)
                         }
                         photoAdapter.notifyDataSetChanged()
 
