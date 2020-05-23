@@ -41,14 +41,15 @@ import timber.log.Timber
 import java.io.OutputStream
 import java.util.*
 
-class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickListener {
+class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickListener, ActivityCompat.OnRequestPermissionsResultCallback {
 
     private lateinit var photoAdapter: PhotoRecyclerViewAdapter
     private lateinit var mainViewModel: MainViewModel
     private val pickImage = 1
     private val takeImage = 2
     private var mActionMode: ActionMode? = null
-
+    private var tempBitmapOnRequestPermissions: Bitmap? = null
+    private val permissionsRequestCode = 1
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -219,6 +220,18 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         }
     }
 
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if(requestCode == permissionsRequestCode && grantResults.contains(PackageManager.PERMISSION_GRANTED)) {
+            tempBitmapOnRequestPermissions?.let { saveAndInsertPhoto(it) }
+            tempBitmapOnRequestPermissions = null
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+    }
+
     private fun setupCarTypeSpinner() {
         ArrayAdapter.createFromResource(
             this,
@@ -350,12 +363,11 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                 takeImage -> {
                     val bitmap = data.extras?.get("data") as Bitmap
                     if (isStoragePermissionGranted()) {
-                        val imageUri : Uri = saveImageBitmap(bitmap, System.currentTimeMillis().toString())
-                        Timber.e(imageUri.toString())
-                        val insertIndex = mainViewModel.addViolationPhoto(imageUri)
-                        photoAdapter.notifyItemInserted(insertIndex)
-                    } // TODO: What do if not granted
+                        Timber.e("granted")
+                        saveAndInsertPhoto(bitmap)
+                    }
                     else {
+                        tempBitmapOnRequestPermissions = bitmap
                         Timber.e("Not granted")
                     }
                 }
@@ -363,25 +375,32 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         }
     }
 
+    private fun saveAndInsertPhoto(bitmap : Bitmap) {
+        val imageUri : Uri = saveImageBitmap(bitmap, System.currentTimeMillis().toString())
+        Timber.e(imageUri.toString())
+        val insertIndex = mainViewModel.addViolationPhoto(imageUri)
+        photoAdapter.notifyItemInserted(insertIndex)
+    }
+
     private fun isStoragePermissionGranted(): Boolean {
-        val tag = "Storage Permission"
         return if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
                 == PackageManager.PERMISSION_GRANTED
             ) {
-                Timber.v(tag, "Permission is granted")
+                Timber.v("Permission is granted")
                 true
             } else {
-                Timber.v(tag, "Permission is revoked")
+                Timber.v( "Permission is revoked")
                 ActivityCompat.requestPermissions(
                     this,
                     arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),
-                    1
+                    permissionsRequestCode
                 )
-                false
+                (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        == PackageManager.PERMISSION_GRANTED)
             }
         } else { //permission is automatically granted on sdk<23 upon installation
-            Timber.v(tag, "Permission is granted")
+            Timber.v( "Permission is granted")
             true
         }
     }
