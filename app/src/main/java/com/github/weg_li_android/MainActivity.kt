@@ -340,9 +340,12 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                             }
                         }
                     } else if (data.data != null) {
-                        val mImageUri: Uri = data.data!! // TODO: Add something useful here.
+                        val mImageUri: Uri? = data.data
+                        val insertIndex = mImageUri?.let { mainViewModel.addViolationPhoto(it) }
+                        if (insertIndex != null) {
+                            photoAdapter.notifyItemInserted(insertIndex)
+                        }
                     }
-
                 }
                 takeImage -> {
                     val bitmap = data.extras?.get("data") as Bitmap
