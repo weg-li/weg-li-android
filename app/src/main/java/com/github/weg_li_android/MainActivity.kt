@@ -149,7 +149,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
 
 
 
-        photoAdapter = PhotoRecyclerViewAdapter(this, mainViewModel.getViolationPhotos())
+        photoAdapter = PhotoRecyclerViewAdapter(this, mainViewModel.getViolationPhotos(), mainViewModel)
         photoAdapter.setClickListener(this)
         recyclerView.adapter = photoAdapter
 

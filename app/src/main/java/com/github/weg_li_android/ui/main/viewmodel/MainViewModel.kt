@@ -30,6 +30,11 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
         return report.violationPhotos.size
     }
 
+    fun removeViolationPhoto(index : Int) {
+        report.violationPhotos.removeAt(index)
+        report.notifyPropertyChanged(violationPhotos)
+    }
+
     fun typeSelected(type: String) {
         report.type =  type
     }

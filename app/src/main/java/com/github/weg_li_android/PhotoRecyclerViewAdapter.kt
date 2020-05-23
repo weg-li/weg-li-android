@@ -14,8 +14,8 @@ import androidx.annotation.NonNull
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.core.graphics.drawable.toDrawable
 import androidx.databinding.ObservableArrayList
-import androidx.databinding.ObservableList
 import androidx.recyclerview.widget.RecyclerView
+import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.photo_list_item.view.*
 import timber.log.Timber
 import java.io.FileNotFoundException
@@ -24,7 +24,8 @@ import java.io.IOException
 
 class PhotoRecyclerViewAdapter internal constructor(
     private val context: Context?,
-    private var data: MutableList<Uri>
+    private var data: MutableList<Uri>,
+    private val mainViewModel: MainViewModel
 ) :
     RecyclerView.Adapter<PhotoRecyclerViewAdapter.ViewHolder>() {
 
@@ -32,11 +33,11 @@ class PhotoRecyclerViewAdapter internal constructor(
     private val mInflater: LayoutInflater = LayoutInflater.from(context)
     private var mClickListener: ItemClickListener? = null
     var deletePhotoSet: ObservableArrayList<Int> = ObservableArrayList()
-    init {
+    /*init {
         deletePhotoSet.addOnListChangedCallback(
             RecyclerViewAdapterOnListChangedCallback<ObservableList<Int>>(deletePhotoSet)
         )
-    }
+    }*/
 
     @NonNull
     override fun onCreateViewHolder(
@@ -54,14 +55,13 @@ class PhotoRecyclerViewAdapter internal constructor(
         position: Int
     ) {
         val image : Bitmap? = getThumbnail(data[position])
-        holder.myAppCompatImageView.background = image!!.toDrawable(resources)
-
+        holder.myAppCompatImageView.background = image?.toDrawable(resources)
         if(position in deletePhotoSet) {
             holder.selectedCheckAppCompatImageView.visibility = View.VISIBLE
         }
         else holder.selectedCheckAppCompatImageView.visibility = View.GONE
     }
-
+/*
     private class RecyclerViewAdapterOnListChangedCallback<Int>(myAppCompatImageView: ObservableArrayList<kotlin.Int>) : ObservableList.OnListChangedCallback<ObservableList<Int>>() {
         val mAppCompatImageView = myAppCompatImageView
         override fun onChanged(sender: ObservableList<Int>?) {
@@ -91,21 +91,25 @@ class PhotoRecyclerViewAdapter internal constructor(
         }
 
     }
-
+*/
     @Throws(FileNotFoundException::class, IOException::class)
     fun getThumbnail(uri: Uri?): Bitmap? {
-        val thumbnailSize = 120f.convertDpToPixel(context!!).toInt()
-        val thumbnail: Bitmap? =
-            uri?.let {
-                context.contentResolver!!.loadThumbnail(
-                    it, Size(thumbnailSize, thumbnailSize), null)
-            }.run {
-                ThumbnailUtils.extractThumbnail(this, thumbnailSize, thumbnailSize)
+        if(context !=null) {
+            val thumbnailSize = 120f.convertDpToPixel(context).toInt()
+            val thumbnail: Bitmap? =
+                uri?.let {
+                    context.contentResolver.loadThumbnail(
+                        it, Size(thumbnailSize, thumbnailSize), null
+                    )
+                }.run {
+                    ThumbnailUtils.extractThumbnail(this, thumbnailSize, thumbnailSize)
+                }
+            if (thumbnail != null) {
+                Timber.e(thumbnail.width.toString() + "-" + thumbnail.height.toString() + "shouldbe" + thumbnailSize.toString())
             }
-        if (thumbnail != null) {
-            Timber.e(thumbnail.width.toString()+"-"+thumbnail.height.toString()+"shouldbe"+thumbnailSize.toString())
+            return thumbnail
         }
-        return thumbnail
+        else return null
     }
 
     // total number of cells
@@ -114,7 +118,8 @@ class PhotoRecyclerViewAdapter internal constructor(
     }
 
     fun removeAt(index : Int) {
-        data.removeAt(index)
+        //data.removeAt(index)
+        mainViewModel.removeViolationPhoto(index)
     }
 
     private fun Float.convertDpToPixel(context: Context): Float {
@@ -129,10 +134,10 @@ class PhotoRecyclerViewAdapter internal constructor(
         var myAppCompatImageView: AppCompatImageView = itemView.findViewById(R.id.photo_list_item)
         var selectedCheckAppCompatImageView: AppCompatImageView = itemView.findViewById(R.id.photo_selected_check)
         override fun onClick(view: View?) {
-            if (mClickListener != null) mClickListener!!.onItemClick(view, adapterPosition)
+            mClickListener?.onItemClick(view, adapterPosition)
         }
         override fun onLongClick(view: View?): Boolean {
-            if (mClickListener != null) mClickListener!!.onItemLongClick(view, adapterPosition)
+            mClickListener?.onItemLongClick(view, adapterPosition)
             return true
         }
 
