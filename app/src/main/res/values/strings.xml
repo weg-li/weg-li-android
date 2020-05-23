@@ -14,6 +14,8 @@
     <string name="send_button">Anzeige aufgeben</string>
     <string name="add_picture">Foto hinzufügen</string>
     <string name="take_picture">Foto aufnehmen</string>
+    <string name="delete_picture">Foto löschen</string>
+    <string name="content_description_delete">Löscht das ausgewählte Foto aus der Anzeige.</string>
     <string name="photos_description">Es sollte der Verstoß, das Fahrzeug und das Nummernschild klar erkennbar sein. Füge mindestens zwei Fotos hinzu.</string>
 
     <string-array name="car_type_list">

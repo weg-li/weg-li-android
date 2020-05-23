@@ -16,15 +16,19 @@ import android.provider.MediaStore
 import android.text.Editable
 import android.text.TextWatcher
 import android.util.DisplayMetrics
+import android.view.Menu
+import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewTreeObserver.OnGlobalLayoutListener
 import android.widget.AdapterView
-import android.widget.AdapterView.OnItemLongClickListener
 import android.widget.ArrayAdapter
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.view.ActionMode
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.app.ActivityCompat
+import androidx.databinding.ObservableArrayList
+import androidx.databinding.ObservableList
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.RecyclerView
@@ -45,6 +49,8 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
     private lateinit var mainViewModel: MainViewModel
     private val pickImage = 1
     private val takeImage = 2
+    private var mActionMode: ActionMode? = null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -139,7 +145,6 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
                 recyclerView.viewTreeObserver.removeOnGlobalLayoutListener(this)
                 //layoutManager.setColumnWidth(convertPixelsToDp(recyclerView.width.toFloat(), context).toInt())
                 Timber.e(convertPixelsToDp(recyclerView.width.toFloat(), context).toString()) //height is ready
-                //Timber.e("Width"+photo_list_item.width)
             }
         })
 
@@ -149,9 +154,7 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
         photoAdapter.setClickListener(this)
         recyclerView.adapter = photoAdapter
 
-        photoAdapter
-
-        recyclerView.setOnLongClickListener(View.OnLongClickListener { v ->
+        recyclerView.setOnLongClickListener({ v ->
             Timber.e("blah")
 
             false
@@ -178,6 +181,34 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
             }
             false
         }
+
+        /**val callback = object : ActionMode.Callback {
+
+            override fun onCreateActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                menuInflater.inflate(R.menu.photos_contextual_action_bar, menu)
+                return true
+            }
+
+            override fun onPrepareActionMode(mode: ActionMode?, menu: Menu?): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(mode: ActionMode?, item: MenuItem?): Boolean {
+                return when (item?.itemId) {
+                    R.id.delete -> {
+                        // Handle delete icon press
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode?) {
+            }
+        }
+
+        val actionMode = startSupportActionMode(callback)
+        actionMode?.title = "1 selected"**/
 
     }
 
@@ -233,8 +264,76 @@ class MainActivity : AppCompatActivity(), PhotoRecyclerViewAdapter.ItemClickList
     }
 
     override fun onItemClick(view: View?, position: Int) {
-        Timber.e("You clicked number %s", position.toString())
+        if(mActionMode != null) {
+            Timber.e("You clicked number %s", position.toString())
+            if(photoAdapter.deletePhotoSet.contains(position)) {
+                photoAdapter.deletePhotoSet.remove(position)
+                photoAdapter.notifyItemChanged(position)
+            }
+            else {
+                photoAdapter.deletePhotoSet.add(position)
+                photoAdapter.notifyItemChanged(position)
+            }
+        }
     }
+
+    override fun onItemLongClick(view: View?, position: Int) {
+        Timber.e("You looong clicked number %s", position.toString())
+        if(mActionMode != null) {
+            return
+        }
+        mActionMode =  startSupportActionMode(mActionModeCallback)
+        if(photoAdapter.deletePhotoSet.contains(position)) {
+            photoAdapter.deletePhotoSet.remove(position)
+            photoAdapter.notifyItemChanged(position)
+        }
+        else
+            photoAdapter.deletePhotoSet.add(position)
+            photoAdapter.notifyItemChanged(position)
+    }
+
+    private val mActionModeCallback: ActionMode.Callback =
+        object : ActionMode.Callback {
+            override fun onCreateActionMode(
+                mode: ActionMode,
+                menu: Menu?
+            ): Boolean {
+                menuInflater.inflate(R.menu.photos_contextual_action_bar, menu)
+                return true
+            }
+
+            override fun onPrepareActionMode(
+                mode: ActionMode?,
+                menu: Menu?
+            ): Boolean {
+                return false
+            }
+
+            override fun onActionItemClicked(
+                mode: ActionMode,
+                item: MenuItem
+            ): Boolean {
+                return when (item.itemId) {
+                    R.id.delete_button -> {
+                        Timber.e("I'm here. Option1 selected, i will remove "+photoAdapter.deletePhotoSet.sorted().toString())
+                        photoAdapter.deletePhotoSet.sortedDescending().forEach {
+                            photoAdapter.removeAtList(it)
+                        }
+                        photoAdapter.notifyDataSetChanged()
+
+                        mode.finish()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+            override fun onDestroyActionMode(mode: ActionMode) {
+                photoAdapter.deletePhotoSet.clear()
+                photoAdapter.notifyDataSetChanged()
+                mActionMode = null
+            }
+        }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
