@@ -12,7 +12,6 @@ class MainViewModel(private val repository: Repository) : ViewModel() {
     fun sendReport() {
         Timber.d("Report is:%s", report.toString())
         Timber.d("Full Email:%s", report.getEmail())
-        repository.sendEmail(report.getEmail())
     }
 
     fun getReport() = report

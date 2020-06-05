@@ -10,8 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
-import com.github.weg_li_android.data.api.ApiHelper
-import com.github.weg_li_android.data.api.ApiServiceImpl
+import com.github.weg_li_android.data.repository.Repository
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -32,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         carColorText.addTextChangedListener {
             mainViewModel.colorSelected(it.toString())
         }
+
+        val repository = Repository()
+        val districts = repository.getDistricts()
 
         carLicenseText.addTextChangedListener {
             mainViewModel.licenseSelected(it.toString())
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewModel() {
         mainViewModel = ViewModelProviders.of(
             this,
-            ViewModelFactory(ApiHelper(ApiServiceImpl()))
+            ViewModelFactory()
         ).get(MainViewModel::class.java)
     }
 
@@ -114,7 +116,9 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                mainViewModel.typeSelected((view as AppCompatTextView).text.toString())
+                view?.let {
+                    mainViewModel.typeSelected((it as AppCompatTextView).text.toString())
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

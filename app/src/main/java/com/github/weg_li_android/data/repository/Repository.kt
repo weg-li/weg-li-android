@@ -1,6 +1,5 @@
 package com.github.weg_li_android.data.repository
 
-import com.github.weg_li_android.data.api.ApiHelper
 import com.github.weg_li_android.data.api.ServiceBuilder
 import com.github.weg_li_android.data.api.WegliEndpoints
 import com.github.weg_li_android.data.model.District
@@ -8,7 +7,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class Repository(private val apiHelper: ApiHelper) {
+class Repository() {
 
     fun getDistricts(): List<District> {
         val request = ServiceBuilder.buildService(WegliEndpoints::class.java)
