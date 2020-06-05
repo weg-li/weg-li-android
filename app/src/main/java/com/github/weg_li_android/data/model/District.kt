@@ -7,4 +7,3 @@ data class District(
     val email: String,
     val license: String
 )
-
