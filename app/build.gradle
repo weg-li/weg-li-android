@@ -55,6 +55,7 @@ dependencies {
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
     implementation "androidx.core:core-ktx:$versions.ktxVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$versions.kotlinXVersion"
 
     //Timber
     implementation "com.jakewharton.timber:timber:$versions.timberVersion"
