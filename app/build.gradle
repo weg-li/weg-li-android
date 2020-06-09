@@ -52,6 +52,10 @@ dependencies {
     implementation "org.koin:koin-android-scope:$versions.koinVersion"
     implementation "org.koin:koin-android-viewmodel:$versions.koinVersion"
 
+    //LiveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$versions.lifecycleVersion"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$versions.lifecycleVersion"
+
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
     implementation "androidx.core:core-ktx:$versions.ktxVersion"

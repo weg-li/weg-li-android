@@ -1,41 +1,44 @@
 ext.versions = [
-        compileSdkVersion           : 29,
-        buildToolsVersion           : '29.0.3',
-        minSdkVersion               : 19,
-        targetSdkVersion            : 29,
-        versionCode                 : 1,
-        versionName                 : '1.0',
+        compileSdkVersion      : 29,
+        buildToolsVersion      : '29.0.3',
+        minSdkVersion          : 19,
+        targetSdkVersion       : 29,
+        versionCode            : 1,
+        versionName            : '1.0',
 
         //android support
-        appcompatVersion            : '1.1.0',
-        constraintlayoutVersion     : '1.1.3',
-        cardviewVersion             : '1.0.0',
-        materialVersion             : '1.1.0',
-        recyclerviewVersion         : '1.1.0',
+        appcompatVersion       : '1.1.0',
+        constraintlayoutVersion: '1.1.3',
+        cardviewVersion        : '1.0.0',
+        materialVersion        : '1.1.0',
+        recyclerviewVersion    : '1.1.0',
 
         // glide
-        glideVersion                : '4.11.0',
+        glideVersion           : '4.11.0',
 
         // kotlin
-        kotlinVersion               : '1.3.71',
-        ktxVersion                  : '1.3.0',
-        kotlinXVersion: '1.3.7',
+        kotlinVersion          : '1.3.71',
+        ktxVersion             : '1.3.0',
+        kotlinXVersion         : '1.3.7',
 
         // koin
-        koinVersion                 : '2.1.5',
+        koinVersion            : '2.1.5',
+
+        // LiveData
+        lifecycleVersion       : '2.3.0-alpha03',
 
         // Timber
-        timberVersion               : '4.7.1',
+        timberVersion          : '4.7.1',
 
         // Network
-        retrofitVersion             : '2.9.0',
-        okhttp3Version              : '4.7.2',
-        gsonVersion                 : '2.8.6',
+        retrofitVersion        : '2.9.0',
+        okhttp3Version         : '4.7.2',
+        gsonVersion            : '2.8.6',
 
         // testing
-        mockitoVersion              : '2.2.0',
-        junitVersion                : '4.13',
-        junitExtVersion             : '1.1.1',
-        espressoVersion             : '3.2.0'
+        mockitoVersion         : '2.2.0',
+        junitVersion           : '4.13',
+        junitExtVersion        : '1.1.1',
+        espressoVersion        : '3.2.0'
 ]
 

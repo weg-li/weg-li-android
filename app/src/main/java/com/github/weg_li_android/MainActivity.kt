@@ -10,7 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
-import com.github.weg_li_android.data.repository.Repository
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -31,9 +30,6 @@ class MainActivity : AppCompatActivity() {
         carColorText.addTextChangedListener {
             mainViewModel.colorSelected(it.toString())
         }
-
-        val repository = Repository()
-        val districts = repository.getDistricts()
 
         carLicenseText.addTextChangedListener {
             mainViewModel.licenseSelected(it.toString())
@@ -62,6 +58,10 @@ class MainActivity : AppCompatActivity() {
         sendButton.setOnClickListener {
             startEmailIntent()
         }
+
+        mainViewModel.districts.observe(this, androidx.lifecycle.Observer { list ->
+            // TODO do something with districts
+        })
     }
 
     private fun startEmailIntent() {
