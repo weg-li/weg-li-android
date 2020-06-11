@@ -10,8 +10,6 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
-import com.github.weg_li_android.data.api.ApiHelper
-import com.github.weg_li_android.data.api.ApiServiceImpl
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -60,6 +58,10 @@ class MainActivity : AppCompatActivity() {
         sendButton.setOnClickListener {
             startEmailIntent()
         }
+
+        mainViewModel.districts.observe(this, androidx.lifecycle.Observer { list ->
+            // TODO do something with districts
+        })
     }
 
     private fun startEmailIntent() {
@@ -94,7 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun setupViewModel() {
         mainViewModel = ViewModelProviders.of(
             this,
-            ViewModelFactory(ApiHelper(ApiServiceImpl()))
+            ViewModelFactory()
         ).get(MainViewModel::class.java)
     }
 
@@ -114,7 +116,9 @@ class MainActivity : AppCompatActivity() {
                 position: Int,
                 id: Long
             ) {
-                mainViewModel.typeSelected((view as AppCompatTextView).text.toString())
+                view?.let {
+                    mainViewModel.typeSelected((it as AppCompatTextView).text.toString())
+                }
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {}

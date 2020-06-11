@@ -18,14 +18,22 @@ ext.versions = [
 
         // kotlin
         kotlinVersion          : '1.3.71',
-        ktxVersion             : '1.2.0',
+        ktxVersion             : '1.3.0',
+        kotlinXVersion         : '1.3.7',
 
         // koin
         koinVersion            : '2.1.5',
 
+        // LiveData
+        lifecycleVersion       : '2.3.0-alpha03',
+
         // Timber
         timberVersion          : '4.7.1',
 
+        // Network
+        retrofitVersion        : '2.9.0',
+        okhttp3Version         : '4.7.2',
+        gsonVersion            : '2.8.6',
 
         // testing
         mockitoVersion         : '2.2.0',

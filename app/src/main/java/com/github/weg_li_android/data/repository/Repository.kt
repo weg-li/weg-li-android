@@ -1,10 +1,10 @@
 package com.github.weg_li_android.data.repository
 
-import com.github.weg_li_android.data.api.ApiHelper
+import com.github.weg_li_android.data.api.ServiceBuilder
+import com.github.weg_li_android.data.api.WegliEndpoints
 
-class Repository(private val apiHelper: ApiHelper) {
+class Repository() {
+    var service = ServiceBuilder.buildService(WegliEndpoints::class.java)
 
-    fun sendEmail(email: String) {
-        //TODO send email to internal email app
-    }
+    suspend fun getDistricts() = service.getDistricts()
 }
