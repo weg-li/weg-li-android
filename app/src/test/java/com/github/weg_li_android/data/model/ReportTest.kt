@@ -28,7 +28,7 @@ class ReportTest {
         )
 
         val testEmail = """
-            Sehr geehrte Damen und Herren,
+            Sehr geehrte Menschen,
             
             hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
             
