@@ -17,11 +17,11 @@ ext.versions = [
         glideVersion           : '4.11.0',
 
         // kotlin
-        kotlinVersion          : '1.3.71',
+        kotlinVersion          : '1.6.21',
         ktxVersion             : '1.2.0',
 
         // koin
-        koinVersion            : '2.1.5',
+        koinVersion            : '3.0.2',
 
         // Timber
         timberVersion          : '4.7.1',
