@@ -12,52 +12,54 @@ import androidx.core.widget.addTextChangedListener
 import androidx.lifecycle.ViewModelProviders
 import com.github.weg_li_android.data.api.ApiHelper
 import com.github.weg_li_android.data.api.ApiServiceImpl
+import com.github.weg_li_android.databinding.ActivityMainBinding
 import com.github.weg_li_android.ui.base.ViewModelFactory
 import com.github.weg_li_android.ui.main.viewmodel.MainViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var mainViewModel: MainViewModel
+    private lateinit var binding: ActivityMainBinding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
         setupViewModel()
 
         setupCarTypeSpinner()
 
-        carColorText.addTextChangedListener {
+        binding.carColorText.addTextChangedListener {
             mainViewModel.colorSelected(it.toString())
         }
 
-        carLicenseText.addTextChangedListener {
+        binding.carLicenseText.addTextChangedListener {
             mainViewModel.licenseSelected(it.toString())
         }
 
         setupViolationSpinner()
 
-        timeText.setOnClickListener { openTimePickerDialog() }
+        binding.timeText.setOnClickListener { openTimePickerDialog() }
 
-        durationText.addTextChangedListener {
+        binding.durationText.addTextChangedListener {
             mainViewModel.durationSelected(it.toString())
         }
 
-        obstructionSwitch.setOnCheckedChangeListener { _, isChecked ->
+        binding.obstructionSwitch.setOnCheckedChangeListener { _, isChecked ->
             mainViewModel.obstructionSelected(
                 isChecked
             )
         }
 
-        carWasEmptySwitch.setOnCheckedChangeListener { _, isChecked ->
+        binding.carWasEmptySwitch.setOnCheckedChangeListener { _, isChecked ->
             mainViewModel.carWasEmptySelected(
                 isChecked
             )
         }
 
-        sendButton.setOnClickListener {
+        binding.sendButton.setOnClickListener {
             startEmailIntent()
         }
     }
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
                 calendar.set(Calendar.HOUR_OF_DAY, hourOfDay)
                 calendar.set(Calendar.MINUTE, minute)
                 val formattedTime = simpleDateFormat.format(calendar.time)
-                timeText.setText(formattedTime)
+                binding.timeText.setText(formattedTime)
                 mainViewModel.timeSelected(formattedTime)
             }, calendar.get(Calendar.HOUR_OF_DAY), calendar.get(Calendar.MINUTE), true)
         timePickerDialog.show()
@@ -105,9 +107,9 @@ class MainActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            carTypeSpinner.adapter = adapter
+            binding.carTypeSpinner.adapter = adapter
         }
-        carTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        binding.carTypeSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
                 view: View?,
@@ -128,8 +130,8 @@ class MainActivity : AppCompatActivity() {
             android.R.layout.simple_spinner_item
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            violationSpinner.adapter = adapter
-            violationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            binding.violationSpinner.adapter = adapter
+            binding.violationSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                 override fun onNothingSelected(parent: AdapterView<*>?) {}
 
                 override fun onItemSelected(

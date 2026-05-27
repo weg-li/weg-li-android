@@ -1,0 +1,8 @@
+weg-li is a platform to report parking violations and other traffic obstructions. This is the Android client for the service.
+
+Features:
+- Report parking violations directly to the authorities.
+- Attach photos and details of the incident.
+- Keep track of your reports.
+
+Note: This app requires you to comply with local laws and regulations regarding reporting and privacy.

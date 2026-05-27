@@ -1,10 +1,10 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
-    id 'kotlin-android-extensions'
 }
 
 android {
+    namespace "com.github.weg_li_android"
     compileSdkVersion versions.compileSdkVersion
     buildToolsVersion versions.buildToolsVersion
 
@@ -27,11 +27,15 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
+    }
+    buildFeatures {
+        viewBinding true
+        buildConfig true
     }
 }
 
@@ -48,9 +52,7 @@ dependencies {
     implementation "com.github.bumptech.glide:glide:$versions.glideVersion"
 
     // koin
-    implementation "org.koin:koin-android:$versions.koinVersion"
-    implementation "org.koin:koin-android-scope:$versions.koinVersion"
-    implementation "org.koin:koin-android-viewmodel:$versions.koinVersion"
+    implementation "io.insert-koin:koin-android:$versions.koinVersion"
 
     // kotlin
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$versions.kotlinVersion"
@@ -60,12 +62,10 @@ dependencies {
     implementation "com.jakewharton.timber:timber:$versions.timberVersion"
 
     implementation 'android.arch.lifecycle:extensions:1.1.1'
-    implementation 'com.amitshekhar.android:rx2-android-networking:1.0.2'
-    implementation 'io.reactivex.rxjava2:rxjava:2.2.18'
-    implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
 
     // Testing
-    testImplementation "com.nhaarman.mockitokotlin2:mockito-kotlin:$versions.mockitoVersion"
+    testImplementation "org.mockito.kotlin:mockito-kotlin:$versions.mockitoVersion"
+    testImplementation "org.mockito:mockito-core:5.7.0"
     testImplementation "junit:junit:$versions.junitVersion"
     testImplementation "org.jetbrains.kotlin:kotlin-test-junit:$versions.kotlinVersion"
     androidTestImplementation "androidx.test.ext:junit:$versions.junitExtVersion"
