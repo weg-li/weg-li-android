@@ -59,7 +59,7 @@ data class Report(
     }
 
     companion object {
-        const val greetings = """Sehr geehrte Damen und Herren,
+        const val greetings = """Sehr geehrte Menschen,
 
 hiermit zeige ich, mit der Bitte um Weiterverfolgung, folgende Verkehrsordnungswidrigkeit an:
 """
